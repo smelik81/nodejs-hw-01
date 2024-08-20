@@ -6,6 +6,7 @@ export const removeLastContact = async () => {
   try {
     const data = await fs.readFile(PATH_DB, 'utf-8');
     contacts = JSON.parse(data);
+    if (contacts.length > 0) contacts.pop();
   } catch (error) {
     if (error.code === 'ENOENT') {
       console.log('File not found, try another file');
@@ -14,7 +15,6 @@ export const removeLastContact = async () => {
       throw error;
     }
   }
-  if (contacts.length > 0) contacts.pop();
   try {
     await fs.writeFile(PATH_DB, JSON.stringify(contacts, null, 2), 'utf-8');
   } catch (error) {
