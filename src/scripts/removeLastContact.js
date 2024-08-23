@@ -1,5 +1,6 @@
 import { PATH_DB } from '../constants/contacts.js';
 import * as fs from 'node:fs/promises';
+import updateContact from './updateContacts.js';
 
 export const removeLastContact = async () => {
   let contacts = [];
@@ -16,7 +17,7 @@ export const removeLastContact = async () => {
     }
   }
   try {
-    await fs.writeFile(PATH_DB, JSON.stringify(contacts, null, 2), 'utf-8');
+    await updateContact(contacts);
   } catch (error) {
     console.error('Error writing to file:', error);
   }
